@@ -33,39 +33,25 @@ public class CustomDataSource implements DataSource {
     }
 
     public static CustomDataSource getInstance() {
-
         if (instance == null) {
-
             synchronized (MONITOR) {
-
                 if (instance == null) {
-
                     try {
-
                         Properties properties = new Properties();
-                        properties.load(
-                                CustomDataSource.class.getClassLoader().getResourceAsStream("app.properties")
-                        );
-
+                        properties.load(CustomDataSource.class.getClassLoader().getResourceAsStream("app.properties"));
                         instance = new CustomDataSource(
                                 properties.getProperty("postgres.driver"),
                                 properties.getProperty("postgres.url"),
                                 properties.getProperty("postgres.password"),
                                 properties.getProperty("postgres.name")
                         );
-
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
                 }
-
             }
-
         }
-
         return instance;
-
     }
 
     @Override

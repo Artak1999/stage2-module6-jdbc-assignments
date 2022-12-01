@@ -46,9 +46,7 @@ public class SimpleJDBCRepository {
     }
 
     public User findUserById(Long userId) {
-
         User user = null;
-
         try (var conn = dataSource.getConnection();
              var statement = conn.prepareStatement(FIND_USER_BY_ID_SQL)) {
             statement.setLong(1, userId);
@@ -59,15 +57,11 @@ public class SimpleJDBCRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return user;
-
     }
 
     public User findUserByName(String userName) {
-
         User user = null;
-
         try (var conn = dataSource.getConnection();
              var statement = conn.prepareStatement(FIND_USER_BY_NAME_SQL)) {
             statement.setString(1, userName);
@@ -78,15 +72,11 @@ public class SimpleJDBCRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return user;
-
     }
 
     public List<User> findAllUser() {
-
         List<User> users = new ArrayList<>();
-
         try (var conn = dataSource.getConnection();
              var statement = conn.prepareStatement(FIND_ALL_USER_SQL)) {
             ResultSet resultSet = statement.executeQuery();
@@ -96,13 +86,10 @@ public class SimpleJDBCRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return users;
-
     }
 
     public User updateUser(User user) {
-
         try (var conn = dataSource.getConnection();
              var statement = conn.prepareStatement(UPDATE_USER_SQL)) {
             statement.setString(1, user.getFirstName());
@@ -115,13 +102,10 @@ public class SimpleJDBCRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return null;
-
     }
 
     public void deleteUser(Long userId) {
-
         try (var conn = dataSource.getConnection();
              var statement = conn.prepareStatement(DELETE_USER)) {
             statement.setLong(1, userId);
@@ -129,17 +113,14 @@ public class SimpleJDBCRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private User map(ResultSet rs) throws SQLException {
-
         return User.builder()
                 .id(rs.getLong("id"))
                 .firstName(rs.getString("firstname"))
                 .lastName(rs.getString("lastname"))
                 .age(rs.getInt("age"))
                 .build();
-
     }
 }
