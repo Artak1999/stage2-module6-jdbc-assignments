@@ -20,12 +20,13 @@ public class SimpleJDBCRepository {
     private PreparedStatement ps = null;
     private Statement st = null;
 
-    private static final String CREATE_USER_SQL = "create table myusers(id int, firstname varchar(255), lastname varchar(255), age int)";
+    private static final String CREATE_USER_SQL = "insert into myusers(firstname, lastname, age) values (?, ?, ?);";
     private static final String UPDATE_USER_SQL = "update myusers set firstname=?, lastname=?, age=? where id = ? ";
-    private static final String DELETE_USER = "delete from myusers WHERE id = ?";
-    private static final String FIND_USER_BY_ID_SQL = "select id, firstname, lastname, age from myusers where id = ?";
-    private static final String FIND_USER_BY_NAME_SQL = "select id, firstname, lastname, age from myusers where firstname = ?";
+    private static final String DELETE_USER = "delete from myusers where id = ?";
+    private static final String FIND_USER_BY_ID_SQL = "select * from myusers where id = ?";
+    private static final String FIND_USER_BY_NAME_SQL = "select * from myusers where firstname like CONCAT('%', ?, '%')";
     private static final String FIND_ALL_USER_SQL = "select * from myusers";
+
 
     public Long createUser(User user) {
         Long id = null;
